@@ -6,6 +6,8 @@ import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 import { TaskStatus } from './task-status.enum';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto'; 
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from '../auth/get-user.decorator';
+import { User } from '../auth/user.entity';
 
 @Controller('tasks')
 @UseGuards(AuthGuard())
@@ -26,8 +28,9 @@ export class TasksController {
 
   @Post()
   @UsePipes(ValidationPipe)
-  createTask(@Body() creatTaskDto: CreateTaskDto): Promise<Task> {
-    return this.tasksService.createTask(creatTaskDto);
+  createTask(@Body() creatTaskDto: CreateTaskDto,
+  @GetUser() user: User): Promise<Task> {
+    return this.tasksService.createTask(creatTaskDto, user);
   }
 
   // using TaskStatusValidationPipe middleware
