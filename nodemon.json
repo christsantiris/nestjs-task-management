@@ -1,5 +1,8 @@
 {
   "watch": ["dist"],
   "ext": "js",
-  "exec": "node dist/main"
+  "exec": "node dist/main",
+  "env": {
+    "NODE_ENV": "development"
+ }
 }
